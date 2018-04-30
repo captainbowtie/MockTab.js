@@ -1,0 +1,22 @@
+{
+  "name": "mocktab.js",
+  "description": "NodeJS mock trial tabulation web application",
+  "main": "app.js",
+  "authors": [
+    "captainbowtie"
+  ],
+  "license": "AGPL-3.0",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-ui": "^1.12.1",
+    "jquery": "^3.3.1"
+  }
+}
