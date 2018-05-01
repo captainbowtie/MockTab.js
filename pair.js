@@ -1,28 +1,34 @@
 function pairRound1(teams) {
-    
-    //Duplicate the teams list
-    var r1teams = teams.slice();
 
-    //Fisher-Yates shuffle algorithm applied to list of teams
-    var j, x, i;
-    for (i = r1teams.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = r1teams[i];
-        r1teams[i] = r1teams[j];
-        r1teams[j] = x;
-    }
-    return r1teams;
+  //Duplicate the teams list
+  var r1teams = teams.slice();
+
+  //Fisher-Yates shuffle algorithm applied to list of teams
+  var j, x, i;
+  for (i = r1teams.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    x = r1teams[i];
+    r1teams[i] = r1teams[j];
+    r1teams[j] = x;
+  }
+
+  //Create initial pairings
+  var pairings = [];
+  for (var a = 0; a < r1teams.length / 2; a++) {
+    pairings.push([r1teams[a * 2], r1teams[a * 2 + 1]]);
+  }
+  return pairings;
 }
 
 function pairRound2(teams) {
-    
   //Sort teams into needs plaintiff and needs defense
   var needsP = [];
   var needsD = [];
   for (var a = 0; a < teams.length; a++) {
     if (teams[a].r1plaintiff) {
       needsD.push(teams[a]);
-    } else {
+    }
+    else {
       needsP.push(teams[a]);
     }
   }
@@ -30,6 +36,51 @@ function pairRound2(teams) {
   //Rank each group
   needsP = rankTeams(needsP);
   needsD = rankTeams(needsD);
+
+  //Create initial pairings from ranked teams
+  var pairings = [];
+  for (var a = 0; a < needsP.length; a++) {
+    pairings.push([needsP[a], needsD[a]]);
+  }
+
+  return pairings;
+}
+
+function pairRound3(teams) {
+  var r3teams = teams.slice();
+  r3teams = rankTeams(r3teams);
+  var pairings = [];
+  for (var a = 0; a < r3teams.length / 2; a++) {
+    pairings.push([r3teams[a * 2], r3teams[a * 2 + 1]]);
+  }
+
+  return r3teams;
+}
+
+function pairRound4(teams) {
+  //Sort teams into needs plaintiff and needs defense
+  var needsP = [];
+  var needsD = [];
+  for (var a = 0; a < teams.length; a++) {
+    if (teams[a].r3plaintiff) {
+      needsD.push(teams[a]);
+    }
+    else {
+      needsP.push(teams[a]);
+    }
+  }
+
+  //Rank each group
+  needsP = rankTeams(needsP);
+  needsD = rankTeams(needsD);
+
+  //Create initial pairings from ranked teams
+  var pairings = [];
+  for (var a = 0; a < needsP.length; a++) {
+    pairings.push([needsP[a], needsD[a]]);
+  }
+
+  return pairings;
 }
 
 function rankTeams(teams) {
@@ -54,7 +105,7 @@ function rankTeams(teams) {
         maxWins = teams[a].wins;
       }
     }
-		
+
     //Put all teams with the top wins in an array
     var topRecordTeams = [];
     for (var a = 0; a < teams.length; a++) {
@@ -111,7 +162,8 @@ function rankTeams(teams) {
         if (topPDTeams[a].number < topTeamNumber) {
           topTeamNumber = topPDTeams[a].number;
         }
-      } else {
+      }
+      else {
         //Else, search for highest team number
         if (topPDTeams[a].number > topTeamNumber) {
           topTeamNumber = topPDTeams[a].number;
