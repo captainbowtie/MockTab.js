@@ -17,12 +17,78 @@
  */
 
 
+var round3TestData = [{
+        "number": 1071,
+        "r1plaintiff": true,
+        "conflicts": [1504, 1434],
+        "wins": 4,
+        "cs": 1,
+        "pd": 28
+    },
+    {
+        "number": 1209,
+        "r1plaintiff": true,
+        "conflicts": [1210, 1433, 1211],
+        "wins": 1,
+        "cs": 3,
+        "pd": -23
+    },
+    {
+        "number": 1210,
+        "r1plaintiff": true,
+        "conflicts": [1209, 1211, 1433],
+        "wins": 4,
+        "cs": 3,
+        "pd": 35
+    },
+    {
+        "number": 1211,
+        "r1plaintiff": false,
+        "conflicts": [1210, 1209],
+        "wins": 2,
+        "cs": 5,
+        "pd": 6
+    },
+    {
+        "number": 1433,
+        "r1plaintiff": false,
+        "conflicts": [1434, 1209, 1210],
+        "wins": 1,
+        "cs": 5,
+        "pd": -18
+    },
+    {
+        "number": 1434,
+        "r1plaintiff": false,
+        "conflicts": [1433, 1558, 1071],
+        "wins": 1,
+        "cs": 7,
+        "pd": -14
+    },
+    {
+        "number": 1504,
+        "r1plaintiff": false,
+        "conflicts": [1071, 1558],
+        "wins": 0,
+        "cs": 7,
+        "pd": -33
+    },
+    {
+        "number": 1558,
+        "r1plaintiff": true,
+        "conflicts": [1434, 1504],
+        "wins": 3,
+        "cs": 1,
+        "pd": 19
+    }
+];
+
 var tournament = {
-    "lowerTeamNumberIsHigherRank":true
+    "lowerTeamNumberIsHigherRank": true
 };
-var p = pairRound4(round4TestData);
-for(var a = 0;a<p.length;a++){
-    console.log(p[a][0].number+" v. "+p[a][1].number);
+var p = pairRound3(round3TestData);
+for (var a = 0; a < p.length; a++) {
+    console.log(p[a][0].number + " v. " + p[a][1].number);
 }
 
 function pairRound1(teams) {
@@ -48,7 +114,7 @@ function pairRound1(teams) {
     //Check if there are any conflicts
     for (var a = 0; a < pairings.length; a++) {
         if (pairings[a][0].conflicts.includes(pairings[a][1].number) ||
-                pairings[a][1].conflicts.includes(pairings[a][0].number)) {
+            pairings[a][1].conflicts.includes(pairings[a][0].number)) {
             pairings = pairRound1(teams);
             a = pairings.length;
         }
@@ -63,7 +129,8 @@ function pairRound2(teams) {
     for (var a = 0; a < teams.length; a++) {
         if (teams[a].r1plaintiff) {
             needsD.push(teams[a]);
-        } else {
+        }
+        else {
             needsP.push(teams[a]);
         }
     }
@@ -94,13 +161,16 @@ function pairRound3(teams) {
         if (tournament.snakeEvens) {
             if (a % 2 == 0) {
                 pairings.push([r3teams[a * 2 + 1], r3teams[a * 2]]);
-            } else {
+            }
+            else {
                 pairings.push([r3teams[a * 2], r3teams[a * 2 + 1]]);
             }
-        } else {
+        }
+        else {
             if (a % 2 == 0) {
                 pairings.push([r3teams[a * 2], r3teams[a * 2 + 1]]);
-            } else {
+            }
+            else {
                 pairings.push([r3teams[a * 2 + 1], r3teams[a * 2]]);
             }
         }
@@ -115,7 +185,8 @@ function pairRound4(teams) {
     for (var a = 0; a < teams.length; a++) {
         if (teams[a].r3plaintiff) {
             needsD.push(teams[a]);
-        } else {
+        }
+        else {
             needsP.push(teams[a]);
         }
     }
@@ -215,7 +286,8 @@ function rankTeams(teams) {
                 if (topPDTeams[a].number < topTeamNumber) {
                     topTeamNumber = topPDTeams[a].number;
                 }
-            } else {
+            }
+            else {
                 //Else, search for highest team number
                 if (topPDTeams[a].number > topTeamNumber) {
                     topTeamNumber = topPDTeams[a].number;
@@ -288,20 +360,20 @@ function resolveImpermissibleConstrainedSides(pairings) {
              We also start at the top and work down, so that as we remove
              items, we are still sure to hit every item
              */
-             
+
             var swapListSize = pAllSwaps.length;
             for (var b = swapListSize - 1; b > -1; b--) {
                 var pSwapTeam = pAllSwaps[b].team;
                 var dSwapTeam = dAllSwaps[b].team;
                 //Check if swap list contains pSwap
                 if (swapList.includes([pTeam.number, pSwapTeam.number]) ||
-                        swapList.includes([pSwapTeam.number, pTeam.number])) {
+                    swapList.includes([pSwapTeam.number, pTeam.number])) {
                     pAllSwaps.splice(b, 1); //if so, remove the swap
                 }
 
                 //Check if swap list containds dSwap
                 if (swapList.includes([dTeam.number, dSwapTeam.number]) ||
-                        swapList.includes([dSwapTeam.number, dTeam.number])) {
+                    swapList.includes([dSwapTeam.number, dTeam.number])) {
                     dAllSwaps.splice(b, 1); //if so, remove the swap
                 }
             }
@@ -333,13 +405,13 @@ function resolveImpermissibleConstrainedSides(pairings) {
 
             //Remove any swaps whose rank distance is greater than the min
             //Start from top and go downward to avoid missing anything
-            for (var b = pAllSwaps.length-1; b >-1; b--) {
+            for (var b = pAllSwaps.length - 1; b > -1; b--) {
                 var rankDistance = Math.abs(a - pAllSwaps[b].rank);
                 if (rankDistance > minPRankDistance) {
                     pAllSwaps.splice(b, 1);
                 }
             }
-            for (var b = dAllSwaps.length-1; b >-1; b--) {
+            for (var b = dAllSwaps.length - 1; b > -1; b--) {
                 var rankDistance = Math.abs(a - dAllSwaps[b].rank);
                 if (rankDistance > minDRankDistance) {
                     dAllSwaps.splice(b, 1);
@@ -363,12 +435,12 @@ function resolveImpermissibleConstrainedSides(pairings) {
             }
 
             //Remove any swaps whose win distance is greater than the min
-            for (var b = pAllSwaps.length-1; b >-1; b--) {
+            for (var b = pAllSwaps.length - 1; b > -1; b--) {
                 if (pAllSwaps[b].winDistance > minPWinDistance) {
                     pAllSwaps.splice(b, 1);
                 }
             }
-            for (var b = dAllSwaps.length-1; b >-1; b--) {
+            for (var b = dAllSwaps.length - 1; b > -1; b--) {
                 if (dAllSwaps[b].winDistance > minDWinDistance) {
                     dAllSwaps.splice(b, 1);
                 }
@@ -391,12 +463,12 @@ function resolveImpermissibleConstrainedSides(pairings) {
             }
 
             //Remove any swaps whose CS distance is greater than the min
-            for (var b = pAllSwaps.length-1; b >-1; b--) {
+            for (var b = pAllSwaps.length - 1; b > -1; b--) {
                 if (pAllSwaps[b].csDistance > minPCSDistance) {
                     pAllSwaps.splice(b, 1);
                 }
             }
-            for (var b = dAllSwaps.length-1; b >-1; b--) {
+            for (var b = dAllSwaps.length - 1; b > -1; b--) {
                 if (dAllSwaps[b].csDistance > minDCSDistance) {
                     dAllSwaps.splice(b, 1);
                 }
@@ -419,12 +491,12 @@ function resolveImpermissibleConstrainedSides(pairings) {
             }
 
             //Remove any swaps whose PD distance is greater than the min
-            for (var b = pAllSwaps.length-1; b >-1; b--) {
+            for (var b = pAllSwaps.length - 1; b > -1; b--) {
                 if (pAllSwaps[b].pdDistance > minPPDDistance) {
                     pAllSwaps.splice(b, 1);
                 }
             }
-            for (var b = dAllSwaps.length-1; b >-1; b--) {
+            for (var b = dAllSwaps.length - 1; b > -1; b--) {
                 if (dAllSwaps[b].pdDistance > minDPDDistance) {
                     dAllSwaps.splice(b, 1);
                 }
@@ -438,14 +510,16 @@ function resolveImpermissibleConstrainedSides(pairings) {
             if (pAllSwaps.length > 1) {
                 if ((pAllSwaps[0].rank + a) > (pAllSwaps[1].rank + a)) { //Check which rank sum is greater
                     pAllSwaps.splice(1, 1);
-                } else { //And remove the other one
+                }
+                else { //And remove the other one
                     pAllSwaps.splice(0, 1);
                 }
             }
             if (dAllSwaps.length > 1) {
                 if ((dAllSwaps[0].rank + a) > (dAllSwaps[1].rank + a)) { //Check which rank sum is greater
                     dAllSwaps.splice(1, 1);
-                } else { //And remove the other one
+                }
+                else { //And remove the other one
                     dAllSwaps.splice(0, 1);
                 }
             }
@@ -461,31 +535,41 @@ function resolveImpermissibleConstrainedSides(pairings) {
             var dRankDistance = Math.abs(dAllSwaps[0].rank - a);
             if (pRankDistance < dRankDistance) {
                 swapP = true;
-            } else if (dRankDistance < pRankDistance) {
+            }
+            else if (dRankDistance < pRankDistance) {
                 swapP = false;
-            } else {
+            }
+            else {
                 if (pAllSwaps[0].winDistance < dAllSwaps[0].winDistance) {
                     swapP = true;
-                } else if (dAllSwaps[0].winDistance < pAllSwaps[0].winDistance) {
+                }
+                else if (dAllSwaps[0].winDistance < pAllSwaps[0].winDistance) {
                     swapP = false;
-                } else {
+                }
+                else {
                     if (pAllSwaps[0].csDistance < dAllSwaps[0].csDistance) {
                         swapP = true;
-                    } else if (dAllSwaps[0].csDistance < pAllSwaps[0].csDistance) {
+                    }
+                    else if (dAllSwaps[0].csDistance < pAllSwaps[0].csDistance) {
                         swapP = false;
-                    } else {
+                    }
+                    else {
                         if (pAllSwaps[0].pdDistance < dAllSwaps[0].pdDistance) {
                             swapP = true;
-                        } else if (dAllSwaps[0].pdDistance < pAllSwaps[0].pdDistance) {
+                        }
+                        else if (dAllSwaps[0].pdDistance < pAllSwaps[0].pdDistance) {
                             swapP = false;
-                        } else {
+                        }
+                        else {
                             var pRankSum = a + pAllSwaps[0].rank;
                             var dRankSum = a + dAllSwaps[0].rank;
                             if (pRankSum > dRankSum) {
                                 swapP = true;
-                            } else if (dRankSum > pRankSum) {
+                            }
+                            else if (dRankSum > pRankSum) {
                                 swapP = false;
-                            } else {
+                            }
+                            else {
                                 swapP = false;
                             }
                         }
@@ -499,7 +583,8 @@ function resolveImpermissibleConstrainedSides(pairings) {
                 pairings[pAllSwaps[0].rank][0] = pTeam;
                 pairings[a][0] = pAllSwaps[0].team;
                 swapList.push(swapListEntry);
-            } else {
+            }
+            else {
                 var swapListEntry = [pairings[a][1].number, dAllSwaps[0].team.number];
                 pairings[dAllSwaps[0].rank][1] = dTeam;
                 pairings[a][1] = dAllSwaps[0].team;
@@ -525,6 +610,7 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
     var swapList = [];
     //Iterate through each pairing (length/2 because the pairings list
     //contains all 24 teams in ranked order)
+
     for (var a = 0; a < pairings.length / 2; a++) {
 
         //Assign teams to variables to make syntax easier to understand
@@ -533,12 +619,13 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
 
         //Check if there is a conflict
         if (pTeam.conflicts.includes(dTeam.number) || dTeam.conflicts.includes(pTeam)) {
-
             //If there is a conflict, create a list of all possible swaps
             var pSwaps = [];
             var dSwaps = [];
+
             //Iterate through all teams, adding them to swap lists (but skipping self swap)
             for (var b = 0; b < pairings.length / 2; b++) {
+
                 if (b != a) { //When index equals index of the conflict pairing, don't add those teams to the list
                     pSwaps.push({
                         "team": pairings[b * 2],
@@ -578,15 +665,15 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
              */
 
             var swapsSize = pSwaps.length;
-            for (var b = swapsSize; b > -1; b--) {
+            for (var b = swapsSize - 1; b > -1; b--) {
                 var pSwapTeam = pSwaps[b].team;
                 var dSwapTeam = dSwaps[b].team;
                 if (swapList.includes([pSwapTeam.number, pTeam.number]) ||
-                        swapList.includes([pTeam.number, pSwapTeam.number])) {
+                    swapList.includes([pTeam.number, pSwapTeam.number])) {
                     pSwaps.splice(b, 1);
                 }
                 if (swapList.includes([dSwapTeam.number, dTeam.number]) ||
-                        swapList.includes([dTeam.number, dSwapTeam.number])) {
+                    swapList.includes([dTeam.number, dSwapTeam.number])) {
                     dSwaps.splice(b, 1);
                 }
             }
@@ -614,13 +701,13 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
                 }
             }
             //Remove any swaps that do not have the minRankDistance
-            for (var b = pSwaps.length-1; b > -1; b--) {
+            for (var b = pSwaps.length - 1; b > -1; b--) {
                 var rankDistance = Math.abs((a * 2) - pSwaps[b].rank);
                 if (rankDistance > minPRankDistance) {
                     pSwaps.splice(b, 1);
                 }
             }
-            for (var b = dSwaps.length-1; b > -1; b--) {
+            for (var b = dSwaps.length - 1; b > -1; b--) {
                 var rankDistance = Math.abs((a * 2 + 1) - dSwaps[b].rank);
                 if (rankDistance > minDRankDistance) {
                     dSwaps.splice(b, 1);
@@ -644,13 +731,13 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
                 }
             }
             //Remove any swaps that do not have the minWinDistance
-            for (var b = pSwaps.length-1; b > -1; b--) {
+            for (var b = pSwaps.length - 1; b > -1; b--) {
                 var winDistance = Math.abs(pTeam.wins - pSwaps[b].wins);
                 if (winDistance > minPWinDistance) {
                     pSwaps.splice(b, 1);
                 }
             }
-            for (var b = dSwaps.length-1; b > -1; b--) {
+            for (var b = dSwaps.length - 1; b > -1; b--) {
                 var winDistance = Math.abs(dTeam.wins - dSwaps[b].wins);
                 if (winDistance > minDWinDistance) {
                     dSwaps.splice(b, 1);
@@ -674,13 +761,13 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
                 }
             }
             //Remove any swaps that do not have the minCSDistance
-            for (var b = pSwaps.length-1; b > -1; b--) {
+            for (var b = pSwaps.length - 1; b > -1; b--) {
                 var csDistance = Math.abs(pTeam.cs - pSwaps[b].cs);
                 if (csDistance > minPCSDistance) {
                     pSwaps.splice(b, 1);
                 }
             }
-            for (var b = dSwaps.length-1; b > -1; b--) {
+            for (var b = dSwaps.length - 1; b > -1; b--) {
                 var csDistance = Math.abs(dTeam.cs - dSwaps[b].cs);
                 if (csDistance > minDCSDistance) {
                     dSwaps.splice(b, 1);
@@ -704,13 +791,13 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
                 }
             }
             //Remove any swaps that do not have the minPPDDistance
-            for (var b = pSwaps.length-1; b > -1; b--) {
+            for (var b = pSwaps.length - 1; b > -1; b--) {
                 var pdDistance = Math.abs(pTeam.pd - pSwaps[b].pd);
                 if (pdDistance > minPPDDistance) {
                     pSwaps.splice(b, 1);
                 }
             }
-            for (var b = dSwaps.length-1; b > -1; b--) {
+            for (var b = dSwaps.length - 1; b > -1; b--) {
                 var pdDistance = Math.abs(dTeam.pd - dSwaps[b].pd);
                 if (pdDistance > minDPDDistance) {
                     dSwaps.splice(b, 1);
@@ -726,14 +813,16 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
             if (pSwaps.length > 1) {
                 if (a + pSwaps[0].rank > a + pSwaps[1].rank) {
                     pSwaps.splice(1, 1);
-                } else {
+                }
+                else {
                     pSwaps.splice(0, 1);
                 }
             }
             if (dSwaps.length > 1) {
                 if (a + 1 + dSwaps[0].rank > a + 1 + dSwaps[1].rank) {
                     dSwaps.splice(1, 1);
-                } else {
+                }
+                else {
                     dSwaps.splice(0, 1);
                 }
             }
@@ -743,33 +832,42 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
              * They need to be compared to determine which is closer
              */
             var swapP;
-            var pRankDistance = Math.abs(pSwaps[0].rank - a);
-            var dRankDistance = Math.abs(dSwaps[0].rank - (a + 1));
+            var pRankDistance = Math.abs(pSwaps[0].rank - a * 2);
+            var dRankDistance = Math.abs(dSwaps[0].rank - (a * 2 + 1));
             if (pRankDistance < dRankDistance) {
                 swapP = true;
-            } else if (dRankDistance < pRankDistance) {
+            }
+            else if (dRankDistance < pRankDistance) {
                 swapP = false;
-            } else {
+            }
+            else {
                 if (pSwaps[0].winDistance < dSwaps[0].winDistance) {
                     swapP = true;
-                } else if (dSwaps[0].winDistance < pSwaps[0].winDistance) {
+                }
+                else if (dSwaps[0].winDistance < pSwaps[0].winDistance) {
                     swapP = false;
-                } else {
+                }
+                else {
                     if (pSwaps[0].csDistance < dSwaps[0].csDistance) {
                         swapP = true;
-                    } else if (dSwaps[0].csDistance < pSwaps[0].csDistance) {
+                    }
+                    else if (dSwaps[0].csDistance < pSwaps[0].csDistance) {
                         swapP = false;
-                    } else {
+                    }
+                    else {
                         if (pSwaps[0].pdDistance < dSwaps[0].pdDistance) {
                             swapP = true;
-                        } else if (dSwaps[0].pdDistance < pSwaps[0].pdDistance) {
+                        }
+                        else if (dSwaps[0].pdDistance < pSwaps[0].pdDistance) {
                             swapP = false;
-                        } else {
+                        }
+                        else {
                             var pRankSum = a + pSwaps[0].rank;
                             var dRankSum = a + 1 + dSwaps[0].rank;
                             if (pRankSum > dRankSum) {
                                 swapP = true;
-                            } else {
+                            }
+                            else {
                                 swapP = false;
                             }
                         }
@@ -777,15 +875,16 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
                 }
             }
 
-            //Perform the swa and add the swap to the swap list
+            //Perform the swap and add the swap to the swap list
             if (swapP) {
                 var swapListEntry = [pTeam.number, pSwaps[0].team.number];
-                pairings[a] = pSwaps[0].team;
+                pairings[a * 2] = pSwaps[0].team;
                 pairings[pSwaps[0].rank] = pTeam;
                 swapList.push(swapListEntry);
-            } else {
+            }
+            else {
                 var swapListEntry = [dTeam.number, dSwaps[0].team.number];
-                pairings[a] = dSwaps[0].team;
+                pairings[a * 2 + 1] = dSwaps[0].team;
                 pairings[dSwaps[0].rank] = dTeam;
                 swapList.push(swapListEntry);
             }
