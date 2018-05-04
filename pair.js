@@ -534,51 +534,66 @@ function resolveImpermissibleConstrainedSides(pairings) {
              */
             var swapP;
 
-            var pRankDistance = Math.abs(pSwaps[0].rank - a);
-            var dRankDistance = Math.abs(dSwaps[0].rank - a);
-            if (pRankDistance < dRankDistance) {
-                swapP = true;
-            }
-            else if (dRankDistance < pRankDistance) {
+            /*
+             * First check that each swapList has at least one member
+             * This should be true unless one of the cards has swapped
+             * With every other card on its side
+             */
+            if (pSwaps.length == 0) {
                 swapP = false;
             }
+            else if (dSwaps.length == 0) {
+                swapP = true;
+            }
             else {
-                if (pSwaps[0].winDistance < dSwaps[0].winDistance) {
+                var pRankDistance = Math.abs(pSwaps[0].rank - a);
+                var dRankDistance = Math.abs(dSwaps[0].rank - a);
+                if (pRankDistance < dRankDistance) {
                     swapP = true;
                 }
-                else if (dSwaps[0].winDistance < pSwaps[0].winDistance) {
+                else if (dRankDistance < pRankDistance) {
                     swapP = false;
                 }
                 else {
-                    if (pSwaps[0].csDistance < dSwaps[0].csDistance) {
+                    if (pSwaps[0].winDistance < dSwaps[0].winDistance) {
                         swapP = true;
                     }
-                    else if (dSwaps[0].csDistance < pSwaps[0].csDistance) {
+                    else if (dSwaps[0].winDistance < pSwaps[0].winDistance) {
                         swapP = false;
                     }
                     else {
-                        if (pSwaps[0].pdDistance < dSwaps[0].pdDistance) {
+                        if (pSwaps[0].csDistance < dSwaps[0].csDistance) {
                             swapP = true;
                         }
-                        else if (dSwaps[0].pdDistance < pSwaps[0].pdDistance) {
+                        else if (dSwaps[0].csDistance < pSwaps[0].csDistance) {
                             swapP = false;
                         }
                         else {
-                            var pRankSum = a + pSwaps[0].rank;
-                            var dRankSum = a + dSwaps[0].rank;
-                            if (pRankSum > dRankSum) {
+                            if (pSwaps[0].pdDistance < dSwaps[0].pdDistance) {
                                 swapP = true;
                             }
-                            else if (dRankSum > pRankSum) {
+                            else if (dSwaps[0].pdDistance < pSwaps[0].pdDistance) {
                                 swapP = false;
                             }
                             else {
-                                swapP = false;
+                                var pRankSum = a + pSwaps[0].rank;
+                                var dRankSum = a + dSwaps[0].rank;
+                                if (pRankSum > dRankSum) {
+                                    swapP = true;
+                                }
+                                else if (dRankSum > pRankSum) {
+                                    swapP = false;
+                                }
+                                else {
+                                    swapP = false;
+                                }
                             }
                         }
                     }
                 }
             }
+
+
 
             //Perform the swap and add the swap to the swap list  
             if (swapP) {
@@ -837,43 +852,58 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
              * They need to be compared to determine which is closer
              */
             var swapP;
-            var pRankDistance = Math.abs(pSwaps[0].rank - a * 2);
-            var dRankDistance = Math.abs(dSwaps[0].rank - (a * 2 + 1));
-            if (pRankDistance < dRankDistance) {
-                swapP = true;
-            }
-            else if (dRankDistance < pRankDistance) {
+
+            /*
+             * First need to check that there is in fact a pSwap and dSwap
+             * This will be true, unless one of the cards has swapped
+             * with literally every other card
+             */
+
+            if (pSwaps.length == 0) {
                 swapP = false;
             }
+            else if (dSwaps.length == 0) {
+                swapP = true;
+            }
             else {
-                if (pSwaps[0].winDistance < dSwaps[0].winDistance) {
+                var pRankDistance = Math.abs(pSwaps[0].rank - a * 2);
+                var dRankDistance = Math.abs(dSwaps[0].rank - (a * 2 + 1));
+                if (pRankDistance < dRankDistance) {
                     swapP = true;
                 }
-                else if (dSwaps[0].winDistance < pSwaps[0].winDistance) {
+                else if (dRankDistance < pRankDistance) {
                     swapP = false;
                 }
                 else {
-                    if (pSwaps[0].csDistance < dSwaps[0].csDistance) {
+                    if (pSwaps[0].winDistance < dSwaps[0].winDistance) {
                         swapP = true;
                     }
-                    else if (dSwaps[0].csDistance < pSwaps[0].csDistance) {
+                    else if (dSwaps[0].winDistance < pSwaps[0].winDistance) {
                         swapP = false;
                     }
                     else {
-                        if (pSwaps[0].pdDistance < dSwaps[0].pdDistance) {
+                        if (pSwaps[0].csDistance < dSwaps[0].csDistance) {
                             swapP = true;
                         }
-                        else if (dSwaps[0].pdDistance < pSwaps[0].pdDistance) {
+                        else if (dSwaps[0].csDistance < pSwaps[0].csDistance) {
                             swapP = false;
                         }
                         else {
-                            var pRankSum = a + pSwaps[0].rank;
-                            var dRankSum = a + 1 + dSwaps[0].rank;
-                            if (pRankSum > dRankSum) {
+                            if (pSwaps[0].pdDistance < dSwaps[0].pdDistance) {
                                 swapP = true;
                             }
-                            else {
+                            else if (dSwaps[0].pdDistance < pSwaps[0].pdDistance) {
                                 swapP = false;
+                            }
+                            else {
+                                var pRankSum = a + pSwaps[0].rank;
+                                var dRankSum = a + 1 + dSwaps[0].rank;
+                                if (pRankSum > dRankSum) {
+                                    swapP = true;
+                                }
+                                else {
+                                    swapP = false;
+                                }
                             }
                         }
                     }
