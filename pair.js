@@ -16,83 +16,9 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
-var round4TestData = [{
-        "number": 1071,
-        "r1plaintiff": true,
-        "r3plaintiff": true,
-        "conflicts": [1504, 1434, 1211],
-        "wins": 6,
-        "cs": 3,
-        "pd": 52
-    },
-    {
-        "number": 1209,
-        "r1plaintiff": true,
-        "r3plaintiff": false,
-        "conflicts": [1210, 1433, 1211, 1434],
-        "wins": 1,
-        "cs": 6,
-        "pd": -30
-    },
-    {
-        "number": 1210,
-        "r1plaintiff": true,
-        "r3plaintiff": true,
-        "conflicts": [1209, 1211, 1433, 1558],
-        "wins": 5,
-        "cs": 7,
-        "pd": 34
-    },
-    {
-        "number": 1211,
-        "r1plaintiff": false,
-        "r3plaintiff": false,
-        "conflicts": [1210, 1209, 1071],
-        "wins": 2,
-        "cs": 11,
-        "pd": -18
-    },
-    {
-        "number": 1433,
-        "r1plaintiff": false,
-        "r3plaintiff": true,
-        "conflicts": [1434, 1209, 1210, 1504],
-        "wins": 2,
-        "cs": 6,
-        "pd": -18
-    },
-    {
-        "number": 1434,
-        "r1plaintiff": false,
-        "r3plaintiff": true,
-        "conflicts": [1433, 1558, 1071, 1209],
-        "wins": 3,
-        "cs": 8,
-        "pd": -7
-    },
-    {
-        "number": 1504,
-        "r1plaintiff": false,
-        "r3plaintiff": false,
-        "conflicts": [1071, 1558, 1433],
-        "wins": 1,
-        "cs": 9,
-        "pd": -33
-    },
-    {
-        "number": 1558,
-        "r1plaintiff": true,
-        "r3plaintiff": false,
-        "conflicts": [1434, 1504, 1210],
-        "wins": 4,
-        "cs": 6,
-        "pd": 20
-    }
-];
-
 var tournament = {
-    "lowerTeamNumberIsHigherRank": true
+    "lowerTeamNumberIsHigherRank": true,
+    "snakeEvens": true
 };
 var p = pairRound4(round4TestData);
 for (var a = 0; a < p.length; a++) {
@@ -232,7 +158,7 @@ function rankTeams(teams) {
 
     while (rankedTeams.length < numberOfTeams) {
         //Loop through teams to determine top wins
-        var maxWins = 0;
+        var maxWins = -1;
         for (var a = 0; a < teams.length; a++) {
             if (teams[a].wins > maxWins) {
                 maxWins = teams[a].wins;
@@ -607,7 +533,9 @@ function resolveImpermissibleConstrainedSides(pairings) {
                 pairings[dSwaps[0].rank][1] = dTeam;
                 pairings[a][1] = dSwaps[0].team;
                 swapList.push(swapListEntry);
+                console.log(swapList[swapList.length - 1][0]+ " -> "+swapList[swapList.length - 1][1]);
             }
+            
             //Having resolved the conflict, reset a = -1 and start
             //Checking from the top again for any new conflicts
             a = -1;
