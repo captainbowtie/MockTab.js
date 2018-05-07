@@ -133,7 +133,6 @@ function pairRound4(teams) {
     var pairings = [];
     for (var a = 0; a < needsP.length; a++) {
         pairings.push([needsP[a], needsD[a]]);
-        //console.log(pairings[a][0].number + " v. " + pairings[a][1].number);
     }
 
     //Resolve impermissible matches
@@ -533,7 +532,6 @@ function resolveImpermissibleConstrainedSides(pairings) {
                 pairings[dSwaps[0].rank][1] = dTeam;
                 pairings[a][1] = dSwaps[0].team;
                 swapList.push(swapListEntry);
-                console.log(swapList[swapList.length - 1][0]+ " -> "+swapList[swapList.length - 1][1]);
             }
             
             //Having resolved the conflict, reset a = -1 and start
