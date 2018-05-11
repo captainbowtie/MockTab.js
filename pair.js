@@ -16,97 +16,6 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-var round3TestData = [{
-    "number": 1072,
-    "r1plaintiff": false,
-    "conflicts": [1498,1085,1483],
-    "wins": 2,
-    "cs": 3,
-    "pd": 1
-  },
-  {
-    "number": 1085,
-    "r1plaintiff": true,
-    "conflicts": [1086,1072,1141],
-    "wins": 1,
-    "cs": 6,
-    "pd": 1
-  },
-  {
-    "number": 1086,
-    "r1plaintiff": false,
-    "conflicts": [1085,1483,1132],
-    "wins": 3,
-    "cs": 2,
-    "pd": 21
-  },
-  {
-    "number": 1132,
-    "r1plaintiff": true,
-    "conflicts": [1141,1086],
-    "wins": 0,
-    "cs": 7,
-    "pd": -44
-  },
-  {
-    "number": 1141,
-    "r1plaintiff": false,
-    "conflicts": [1142,1132,1085],
-    "wins": 4,
-    "cs": 1,
-    "pd": 27
-  },
-  {
-    "number": 1142,
-    "r1plaintiff": true,
-    "conflicts": [1141,1389,1498],
-    "wins": 3.5,
-    "cs": 4.5,
-    "pd": 17
-  },
-  {
-    "number": 1389,
-    "r1plaintiff": false,
-    "conflicts": [1142,1985],
-    "wins": 2,
-    "cs": 3.5,
-    "pd": 39
-  },
-  {
-    "number": 1483,
-    "r1plaintiff": true,
-    "conflicts": [1086,1072],
-    "wins": 2,
-    "cs": 5,
-    "pd": -6
-  },
-  {
-    "number": 1498,
-    "r1plaintiff": false,
-    "conflicts": [1072,1985,1142],
-    "wins": 2.5,
-    "cs": 3.5,
-    "pd": 22
-  },
-  {
-    "number": 1985,
-    "r1plaintiff": true,
-    "conflicts": [1498,1389],
-    "wins": -1,
-    "cs": 4.5,
-    "pd": -78
-  }
-];
-
-var tournament = {
-    "lowerTeamNumberIsHigherRank": true,
-    "snakeEvens": false
-};
-var p = pairRound3(round3TestData);
-for (var a = 0; a < p.length; a++) {
-    console.log(p[a][0].number + " v. " + p[a][1].number);
-}
-
 function pairRound1(teams) {
 
     //Duplicate the teams list
@@ -216,6 +125,8 @@ function pairRound4(teams) {
     for (var a = 0; a < needsP.length; a++) {
         pairings.push([needsP[a], needsD[a]]);
     }
+
+
 
     //Resolve impermissible matches
     pairings = resolveImpermissibleConstrainedSides(pairings);
@@ -615,6 +526,8 @@ function resolveImpermissibleConstrainedSides(pairings) {
                 pairings[a][1] = dSwaps[0].team;
                 swapList.push(swapListEntry);
             }
+            
+
             
             //Having resolved the conflict, reset a = -1 and start
             //Checking from the top again for any new conflicts
