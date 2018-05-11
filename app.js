@@ -1,3 +1,7 @@
+var express     = require( 'express' ),
+    app         = express(),
+    nunjucks    = require( 'nunjucks' );
+
 const http = require("http");
 const PORT = 8080;
 

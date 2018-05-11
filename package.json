@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/captainbowtie/MockTab.js/issues"
   },
-  "homepage": "https://github.com/captainbowtie/MockTab.js#readme"
+  "homepage": "https://github.com/captainbowtie/MockTab.js#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "nunjucks": "^3.1.2"
+  }
 }
