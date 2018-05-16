@@ -1,19 +1,13 @@
-var express     = require( 'express' ),
-    app         = express(),
-    nunjucks    = require( 'nunjucks' );
-
 const http = require("http");
+const express = require("express");
 const PORT = 8080;
 
-const requestHandler = (req, res) => {
-	res.end("Hello from AWS Cloud9!")
-}
+var app = express();
 
-const server = http.createServer(requestHandler);
+http.createServer(app).listen(PORT);
 
-server.listen(PORT, (err) => {
-	if (err) {
-		console.log("Error occurred", err) ;
-	}
-	console.log(`Server is listening on ${PORT}`);
-})
+app.get("/hello", function (req, res) {
+    res.send("Hello World!");
+});
+
+app.get("/team/:number")
