@@ -16,6 +16,8 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+"use strict";
+
 function pairRound1(teams) {
 
     //Duplicate the teams list
@@ -32,12 +34,12 @@ function pairRound1(teams) {
 
     //Create initial pairings
     var pairings = [];
-    for (var a = 0; a < r1teams.length / 2; a++) {
+    for (let a = 0; a < r1teams.length / 2; a++) {
         pairings.push([r1teams[a * 2], r1teams[a * 2 + 1]]);
     }
 
     //Check if there are any conflicts
-    for (var a = 0; a < pairings.length; a++) {
+    for (let a = 0; a < pairings.length; a++) {
         if (pairings[a][0].conflicts.includes(pairings[a][1].number) ||
             pairings[a][1].conflicts.includes(pairings[a][0].number)) {
             pairings = pairRound1(teams);
@@ -51,7 +53,7 @@ function pairRound2(teams) {
     //Sort teams into needs plaintiff and needs defense
     var needsP = [];
     var needsD = [];
-    for (var a = 0; a < teams.length; a++) {
+    for (let a = 0; a < teams.length; a++) {
         if (teams[a].r1plaintiff) {
             needsD.push(teams[a]);
         }
@@ -66,7 +68,7 @@ function pairRound2(teams) {
 
     //Create initial pairings from ranked teams
     var pairings = [];
-    for (var a = 0; a < needsP.length; a++) {
+    for (let a = 0; a < needsP.length; a++) {
         pairings.push([needsP[a], needsD[a]]);
     }
 
@@ -82,7 +84,7 @@ function pairRound3(teams) {
 
     //Do the snake!
     var pairings = [];
-    for (var a = 0; a < r3teams.length / 2; a++) {
+    for (let a = 0; a < r3teams.length / 2; a++) {
         if (tournament.snakeEvens) {
             if (a % 2 == 0) {
                 pairings.push([r3teams[a * 2 + 1], r3teams[a * 2]]);
@@ -107,7 +109,7 @@ function pairRound4(teams) {
     //Sort teams into needs plaintiff and needs defense
     var needsP = [];
     var needsD = [];
-    for (var a = 0; a < teams.length; a++) {
+    for (let a = 0; a < teams.length; a++) {
         if (teams[a].r3plaintiff) {
             needsD.push(teams[a]);
         }
@@ -122,7 +124,7 @@ function pairRound4(teams) {
 
     //Create initial pairings from ranked teams
     var pairings = [];
-    for (var a = 0; a < needsP.length; a++) {
+    for (let a = 0; a < needsP.length; a++) {
         pairings.push([needsP[a], needsD[a]]);
     }
 
@@ -151,7 +153,7 @@ function rankTeams(teams) {
     while (rankedTeams.length < numberOfTeams) {
         //Loop through teams to determine top wins
         var maxWins = -1;
-        for (var a = 0; a < teams.length; a++) {
+        for (let a = 0; a < teams.length; a++) {
             if (teams[a].wins > maxWins) {
                 maxWins = teams[a].wins;
             }
@@ -159,7 +161,7 @@ function rankTeams(teams) {
 
         //Put all teams with the top wins in an array
         var topRecordTeams = [];
-        for (var a = 0; a < teams.length; a++) {
+        for (let a = 0; a < teams.length; a++) {
             if (teams[a].wins == maxWins) {
                 topRecordTeams.push(teams[a]);
             }
@@ -167,7 +169,7 @@ function rankTeams(teams) {
 
         //Find top CS for teams with top wins
         var maxCS = 0;
-        for (var a = 0; a < topRecordTeams.length; a++) {
+        for (let a = 0; a < topRecordTeams.length; a++) {
             if (topRecordTeams[a].cs > maxCS) {
                 maxCS = topRecordTeams[a].cs;
             }
@@ -175,7 +177,7 @@ function rankTeams(teams) {
 
         //Put all teams with the top CS in an array
         var topCSTeams = [];
-        for (var a = 0; a < topRecordTeams.length; a++) {
+        for (let a = 0; a < topRecordTeams.length; a++) {
             if (topRecordTeams[a].cs == maxCS) {
                 topCSTeams.push(topRecordTeams[a]);
             }
@@ -183,7 +185,7 @@ function rankTeams(teams) {
 
         //Find top PD for teams with top wins and top CS
         var maxPD = -9999;
-        for (var a = 0; a < topCSTeams.length; a++) {
+        for (let a = 0; a < topCSTeams.length; a++) {
             if (topCSTeams[a].pd > maxPD) {
                 maxPD = topCSTeams[a].pd;
             }
@@ -191,7 +193,7 @@ function rankTeams(teams) {
 
         //Put all teams with top PD in an array
         var topPDTeams = [];
-        for (var a = 0; a < topCSTeams.length; a++) {
+        for (let a = 0; a < topCSTeams.length; a++) {
             if (topCSTeams[a].pd == maxPD) {
                 topPDTeams.push(topCSTeams[a]);
             }
@@ -207,7 +209,7 @@ function rankTeams(teams) {
         //Initially, take the first team in the array of tied teams
         var topTeamNumber = topPDTeams[0].number;
         //Then, loop throgh array, and compare the team number
-        for (var a = 0; a < topPDTeams.length; a++) {
+        for (let a = 0; a < topPDTeams.length; a++) {
             if (tournament.lowerTeamNumberIsHigherRank) {
                 //If lower team number is higher ranked, then search for lowest team number
                 if (topPDTeams[a].number < topTeamNumber) {
@@ -224,7 +226,7 @@ function rankTeams(teams) {
 
         //Finally, push that top team to the ranked teams array
         //And then remove it from the list of teams to be ranked
-        for (var a = 0; a < teams.length; a++) {
+        for (let a = 0; a < teams.length; a++) {
             if (teams[a].number == topTeamNumber) {
                 rankedTeams.push(teams[a]); //Push to ranked teams
                 teams.splice(a, 1);
@@ -248,7 +250,7 @@ function rankTeams(teams) {
 function resolveImpermissibleConstrainedSides(pairings) {
     var swapList = [];
     //Iterate through each pairing
-    for (var a = 0; a < pairings.length; a++) {
+    for (let a = 0; a < pairings.length; a++) {
         //Assign teams to variables to make syntax easier to understand
         var pTeam = pairings[a][0];
         var dTeam = pairings[a][1];
@@ -261,7 +263,7 @@ function resolveImpermissibleConstrainedSides(pairings) {
             var pSwaps = [];
             var dSwaps = [];
             //Iterate through all teams and add them to potential swap list
-            for (var b = 0; b < pairings.length; b++) {
+            for (let b = 0; b < pairings.length; b++) {
                 //Don't add a swap with itself to the list
                 if (b != a) {
                     pSwaps.push({
@@ -284,14 +286,14 @@ function resolveImpermissibleConstrainedSides(pairings) {
             //Remove all swaps that are on the swap list
             for (var b = 0; b < swapList.length; b++) {
                 //Check if pSwap is on prior swap list, and if so disqualify swap
-                for (var c = pSwaps.length - 1; c > -1; c--) {
+                for (let c = pSwaps.length - 1; c > -1; c--) {
                     if ((swapList[b][0] == pTeam.number && swapList[b][1] == pSwaps[c].team.number) ||
                         (swapList[b][0] == pSwaps[c].team.number && swapList[b][1] == pTeam.number)) {
                         pSwaps.splice(c, 1);
                     }
                 }
                 //Check if dSwap is on prior swap list, and if so disqualify swap
-                for (var c = dSwaps.length - 1; c > -1; c--) {
+                for (let c = dSwaps.length - 1; c > -1; c--) {
                     if ((swapList[b][0] == dTeam.number && swapList[b][1] == dSwaps[c].team.number) ||
                         (swapList[b][0] == dSwaps[c].team.number && swapList[b][1] == dTeam.number)) {
                         dSwaps.splice(c, 1);
@@ -311,13 +313,13 @@ function resolveImpermissibleConstrainedSides(pairings) {
             var minDRankDistance = 9999;
 
             //Determine min rank distance
-            for (var b = 0; b < pSwaps.length; b++) {
+            for (let b = 0; b < pSwaps.length; b++) {
                 var rankDistance = Math.abs(a - pSwaps[b].rank);
                 if (rankDistance < minPRankDistance) {
                     minPRankDistance = rankDistance;
                 }
             }
-            for (var b = 0; b < dSwaps.length; b++) {
+            for (let b = 0; b < dSwaps.length; b++) {
                 var rankDistance = Math.abs(a - dSwaps[b].rank);
                 if (rankDistance < minDRankDistance) {
                     minDRankDistance = rankDistance;
@@ -326,13 +328,13 @@ function resolveImpermissibleConstrainedSides(pairings) {
 
             //Remove any swaps whose rank distance is greater than the min
             //Start from top and go downward to avoid missing anything
-            for (var b = pSwaps.length - 1; b > -1; b--) {
+            for (let b = pSwaps.length - 1; b > -1; b--) {
                 var rankDistance = Math.abs(a - pSwaps[b].rank);
                 if (rankDistance > minPRankDistance) {
                     pSwaps.splice(b, 1);
                 }
             }
-            for (var b = dSwaps.length - 1; b > -1; b--) {
+            for (let b = dSwaps.length - 1; b > -1; b--) {
                 var rankDistance = Math.abs(a - dSwaps[b].rank);
                 if (rankDistance > minDRankDistance) {
                     dSwaps.splice(b, 1);
@@ -344,24 +346,24 @@ function resolveImpermissibleConstrainedSides(pairings) {
             var minDWinDistance = 9999;
 
             //Loop through and find the actual minWin distance
-            for (var b = 0; b < pSwaps.length; b++) {
+            for (let b = 0; b < pSwaps.length; b++) {
                 if (pSwaps[b].winDistance < minPWinDistance) {
                     minPWinDistance = pSwaps[b].winDistance;
                 }
             }
-            for (var b = 0; b < dSwaps.length; b++) {
+            for (let b = 0; b < dSwaps.length; b++) {
                 if (dSwaps[b].winDistance < minDWinDistance) {
                     minDWinDistance = dSwaps[b].winDistance;
                 }
             }
 
             //Remove any swaps whose win distance is greater than the min
-            for (var b = pSwaps.length - 1; b > -1; b--) {
+            for (let b = pSwaps.length - 1; b > -1; b--) {
                 if (pSwaps[b].winDistance > minPWinDistance) {
                     pSwaps.splice(b, 1);
                 }
             }
-            for (var b = dSwaps.length - 1; b > -1; b--) {
+            for (let b = dSwaps.length - 1; b > -1; b--) {
                 if (dSwaps[b].winDistance > minDWinDistance) {
                     dSwaps.splice(b, 1);
                 }
@@ -372,24 +374,24 @@ function resolveImpermissibleConstrainedSides(pairings) {
             var minDCSDistance = 9999;
 
             //Loop through and find the actual minCS distance
-            for (var b = 0; b < pSwaps.length; b++) {
+            for (let b = 0; b < pSwaps.length; b++) {
                 if (pSwaps[b].csDistance < minPCSDistance) {
                     minPCSDistance = pSwaps[b].csDistance;
                 }
             }
-            for (var b = 0; b < dSwaps.length; b++) {
+            for (let b = 0; b < dSwaps.length; b++) {
                 if (dSwaps[b].csDistance < minDCSDistance) {
                     minDCSDistance = dSwaps[b].csDistance;
                 }
             }
 
             //Remove any swaps whose CS distance is greater than the min
-            for (var b = pSwaps.length - 1; b > -1; b--) {
+            for (let b = pSwaps.length - 1; b > -1; b--) {
                 if (pSwaps[b].csDistance > minPCSDistance) {
                     pSwaps.splice(b, 1);
                 }
             }
-            for (var b = dSwaps.length - 1; b > -1; b--) {
+            for (let b = dSwaps.length - 1; b > -1; b--) {
                 if (dSwaps[b].csDistance > minDCSDistance) {
                     dSwaps.splice(b, 1);
                 }
@@ -400,24 +402,24 @@ function resolveImpermissibleConstrainedSides(pairings) {
             var minDPDDistance = 9999;
 
             //Loop through and find the actual minPD distance
-            for (var b = 0; b < pSwaps.length; b++) {
+            for (let b = 0; b < pSwaps.length; b++) {
                 if (pSwaps[b].pdDistance < minPPDDistance) {
                     minPPDDistance = pSwaps[b].pdDistance;
                 }
             }
-            for (var b = 0; b < dSwaps.length; b++) {
+            for (let b = 0; b < dSwaps.length; b++) {
                 if (dSwaps[b].pdDistance < minDPDDistance) {
                     minDPDDistance = dSwaps[b].pdDistance;
                 }
             }
 
             //Remove any swaps whose PD distance is greater than the min
-            for (var b = pSwaps.length - 1; b > -1; b--) {
+            for (let b = pSwaps.length - 1; b > -1; b--) {
                 if (pSwaps[b].pdDistance > minPPDDistance) {
                     pSwaps.splice(b, 1);
                 }
             }
-            for (var b = dSwaps.length - 1; b > -1; b--) {
+            for (let b = dSwaps.length - 1; b > -1; b--) {
                 if (dSwaps[b].pdDistance > minDPDDistance) {
                     dSwaps.splice(b, 1);
                 }
@@ -551,7 +553,7 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
     //Iterate through each pairing (length/2 because the pairings list
     //contains all 24 teams in ranked order)
 
-    for (var a = 0; a < pairings.length / 2; a++) {
+    for (let a = 0; a < pairings.length / 2; a++) {
 
         //Assign teams to variables to make syntax easier to understand
         var pTeam = pairings[a * 2];
@@ -564,7 +566,7 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
             var dSwaps = [];
 
             //Iterate through all teams, adding them to swap lists (but skipping self swap)
-            for (var b = 0; b < pairings.length / 2; b++) {
+            for (let b = 0; b < pairings.length / 2; b++) {
 
                 if (b != a) { //When index equals index of the conflict pairing, don't add those teams to the list
                     pSwaps.push({
@@ -602,16 +604,16 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
              * Remove all swaps from pSwaps and dSwaps that are on the prior swap list
              */
 
-            for (var b = 0; b < swapList.length; b++) {
+            for (let b = 0; b < swapList.length; b++) {
                 //Check if pSwaps are on list, and if so, disqualify as option
-                for (var c = pSwaps.length - 1; c > -1; c--) {
+                for (let c = pSwaps.length - 1; c > -1; c--) {
                     if ((swapList[b][0] == pTeam.number && swapList[b][1] == pSwaps[c].team.number) ||
                         (swapList[b][0] == pSwaps[c].team.number && swapList[b][1] == pTeam.number)) {
                         pSwaps.splice(c, 1);
                     }
                 }
                 //Check if dSwaps are on list, and if so, disqualify as option
-                for (var c = dSwaps.length - 1; c > -1; c--) {
+                for (let c = dSwaps.length - 1; c > -1; c--) {
                     if ((swapList[b][0] == dTeam.number && swapList[b][1] == dSwaps[c].team.number) ||
                         (swapList[b][0] == dSwaps[c].team.number && swapList[b][1] == dTeam.number)) {
                         dSwaps.splice(c, 1);
@@ -629,26 +631,26 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
             var minPRankDistance = 9999;
             var minDRankDistance = 9999;
             //Determine min rank distance for pSwaps and dSwaps
-            for (var b = 0; b < pSwaps.length; b++) {
+            for (let b = 0; b < pSwaps.length; b++) {
                 var rankDistance = Math.abs((a * 2) - pSwaps[b].rank);
                 if (rankDistance < minPRankDistance) {
                     minPRankDistance = rankDistance;
                 }
             }
-            for (var b = 0; b < dSwaps.length; b++) {
+            for (let b = 0; b < dSwaps.length; b++) {
                 var rankDistance = Math.abs((a * 2 + 1) - dSwaps[b].rank);
                 if (rankDistance < minDRankDistance) {
                     minDRankDistance = rankDistance;
                 }
             }
             //Remove any swaps that do not have the minRankDistance
-            for (var b = pSwaps.length - 1; b > -1; b--) {
+            for (let b = pSwaps.length - 1; b > -1; b--) {
                 var rankDistance = Math.abs((a * 2) - pSwaps[b].rank);
                 if (rankDistance > minPRankDistance) {
                     pSwaps.splice(b, 1);
                 }
             }
-            for (var b = dSwaps.length - 1; b > -1; b--) {
+            for (let b = dSwaps.length - 1; b > -1; b--) {
                 var rankDistance = Math.abs((a * 2 + 1) - dSwaps[b].rank);
                 if (rankDistance > minDRankDistance) {
                     dSwaps.splice(b, 1);
@@ -659,23 +661,23 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
             var minPWinDistance = 9999;
             var minDWinDistance = 9999;
             //Determine min win distance for pSwaps and dSwaps
-            for (var b = 0; b < pSwaps.length; b++) {
+            for (let b = 0; b < pSwaps.length; b++) {
                 if (pSwaps[b].winDistance < minPWinDistance) {
                     minPWinDistance = pSwaps[b].winDistance;
                 }
             }
-            for (var b = 0; b < dSwaps.length; b++) {
+            for (let b = 0; b < dSwaps.length; b++) {
                 if (dSwaps[b].winDistance < minDWinDistance) {
                     minDWinDistance = dSwaps[b].winDistance;
                 }
             }
             //Remove any swaps that do not have the minWinDistance
-            for (var b = pSwaps.length - 1; b > -1; b--) {
+            for (let b = pSwaps.length - 1; b > -1; b--) {
                 if (pSwaps[b].winDistance > minPWinDistance) {
                     pSwaps.splice(b, 1);
                 }
             }
-            for (var b = dSwaps.length - 1; b > -1; b--) {
+            for (let b = dSwaps.length - 1; b > -1; b--) {
                 if (dSwaps[b].winDistance > minDWinDistance) {
                     dSwaps.splice(b, 1);
                 }
@@ -685,23 +687,23 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
             var minPCSDistance = 9999;
             var minDCSDistance = 9999;
             //Determine min cs distance for pSwaps and dSwaps
-            for (var b = 0; b < pSwaps.length; b++) {
+            for (let b = 0; b < pSwaps.length; b++) {
                 if (pSwaps[b].csDistance < minPCSDistance) {
                     minPCSDistance = pSwaps[b].csDistance;
                 }
             }
-            for (var b = 0; b < dSwaps.length; b++) {
+            for (let b = 0; b < dSwaps.length; b++) {
                 if (dSwaps[b].csDistance < minDCSDistance) {
                     minDCSDistance = dSwaps[b].csDistance;
                 }
             }
             //Remove any swaps that do not have the minCSDistance
-            for (var b = pSwaps.length - 1; b > -1; b--) {
+            for (let b = pSwaps.length - 1; b > -1; b--) {
                 if (pSwaps[b].csDistance > minPCSDistance) {
                     pSwaps.splice(b, 1);
                 }
             }
-            for (var b = dSwaps.length - 1; b > -1; b--) {
+            for (let b = dSwaps.length - 1; b > -1; b--) {
                 if (dSwaps[b].csDistance > minDCSDistance) {
                     dSwaps.splice(b, 1);
                 }
@@ -711,23 +713,23 @@ function resolveImpermissibleUnconstrainedSides(pairings) {
             var minPPDDistance = 9999;
             var minDPDDistance = 9999;
             //Determine min PD distance for pSwaps and dSwaps
-            for (var b = 0; b < pSwaps.length; b++) {
+            for (let b = 0; b < pSwaps.length; b++) {
                 if (pSwaps[b].pdDistance < minPPDDistance) {
                     minPPDDistance = pSwaps[b].pdDistance;
                 }
             }
-            for (var b = 0; b < dSwaps.length; b++) {
+            for (let b = 0; b < dSwaps.length; b++) {
                 if (dSwaps[b].pdDistance < minDPDDistance) {
                     minDPDDistance = dSwaps[b].pdDistance;
                 }
             }
             //Remove any swaps that do not have the minPPDDistance
-            for (var b = pSwaps.length - 1; b > -1; b--) {
+            for (let b = pSwaps.length - 1; b > -1; b--) {
                 if (pSwaps[b].pdDistance > minPPDDistance) {
                     pSwaps.splice(b, 1);
                 }
             }
-            for (var b = dSwaps.length - 1; b > -1; b--) {
+            for (let b = dSwaps.length - 1; b > -1; b--) {
                 if (dSwaps[b].pdDistance > minDPDDistance) {
                     dSwaps.splice(b, 1);
                 }

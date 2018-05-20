@@ -15,4 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+const MongoClient = require('mongodb').MongoClient;
 
+var uri = "mongodb+srv://mockTabRW:<oVauWfMdT3vVMdFr>@mocktab0-r7rih.mongodb.net/mockTab0?retryWrites=true";
+MongoClient.connect(uri, function(err, client) {
+   const collection = client.db("test").collection("devices");
+   // perform actions on the collection object
+   client.close();
+});
