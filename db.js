@@ -1,8 +1,13 @@
-var MongoClient = require("mongodb").MongoClient;
-var url = "mongodb://localhost:27017/mocktab";
+const db = {
+    hostname: "localhost",
+    readUser: "readUser",
+    readPass: "readPass",
+    writeUser: "writeUser",
+    writePass: "writePass",
+};
 
-MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    console.log("Database created!");
-    db.close();
-});
+export const urls = {
+    read: "mongodb://"+db.readUser+":"+db.readPass+"@"+db.hostname+"/MockTab",
+    write: "mongodb://"+db.writeUser+":"+db.writePass+"@"+db.hostname+"/MockTab",
+    setup: "mongobd://"+db.hostname+"/MockTab"
+};
