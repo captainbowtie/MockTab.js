@@ -18,34 +18,16 @@ const collections = [
 	"ballots",
 	"status"];
 
-/*Connect to database
+
 MongoClient.connect(urls.setup, function(err, client) {
-	//handle error if any
 	if (err) throw err;
-	
+
 	const db = client.db("MockTab");
 
-	//iterate through list of collections and delete the old one, then create a new one
 	for(let collectionName of collections){
-		//Delete the old collection
-		db.collection(collectionName).drop(function(err,dropOK){
-			if (err) throw err;
-
+		db.collection(collectionName).drop(function(){
 		});
 	}
+	
 	client.close();
 });
-*/
-for(let collectionName of collections){
-	MongoClient.connect(urls.setup, function(err, client) {
-		//handle error if any
-		if (err) throw err;
-
-		const db = client.db("MockTab");
-		db.collection(collectionName).drop(function(err,dropOK){
-			if (err) throw err;
-
-		});
-		client.close();
-	});
-}
