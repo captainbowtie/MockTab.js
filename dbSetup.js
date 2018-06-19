@@ -1,5 +1,6 @@
-const urls = require("./db.js");
-const MongoClient = require("mongodb");
+const urls = require("./db");
+var mongoose = require("mongoose");
+ 
 
 const collections = [
 	"users",
@@ -17,8 +18,19 @@ const collections = [
 	"coaches",
 	"ballots",
 	"status"];
+ 
+mongoose.connect(urls.setup, function (err) {
+ 
+	if (err) throw err;
+ 
+		console.log('Successfully connected');
+ 
+});
 
 
+
+
+/*Drop old collections
 MongoClient.connect(urls.setup, function(err, client) {
 	if (err) throw err;
 
@@ -26,8 +38,22 @@ MongoClient.connect(urls.setup, function(err, client) {
 
 	for(let collectionName of collections){
 		db.collection(collectionName).drop(function(){
-		});
+		}).then();
 	}
 	
 	client.close();
 });
+
+//Create new collections
+
+	MongoClient.connect(urls.setup, function(err, cli) {
+		if (err) throw err;
+
+		const db = cli.db("MockTab");
+
+		db.createCollection("test",function(){
+		});
+	
+		cli.close();
+	});
+*/
