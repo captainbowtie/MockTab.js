@@ -11,3 +11,5 @@ var judgeConflictSchema = mongoose.Schema({
 		ref: "Judge"
 	}
 });
+
+var JudgeConflict = mongoose.model("JudgeConflict", judgeConflictSchema);

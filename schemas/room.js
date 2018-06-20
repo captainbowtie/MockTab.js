@@ -12,3 +12,5 @@ var roomSchema = mongoose.Schema({
 	availableRound3: Boolean,
 	availableRound4: Boolean
 });
+
+var Room = mongoose.model("Room", roomSchema);

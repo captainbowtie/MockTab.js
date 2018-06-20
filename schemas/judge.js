@@ -8,3 +8,5 @@ var judgeSchema = mongoose.Schema({
 	availableRound4: Boolean,
 	quality: Number
 });
+
+var Judge = mongoose.model("Judge", judgeSchema);

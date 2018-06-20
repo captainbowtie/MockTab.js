@@ -9,3 +9,5 @@ var competitorSchema = mongoose.Schema({
 		ref: 'Team'
 	}
 });
+
+var Competitor = mongoose.model("Competitor", competitorSchema);

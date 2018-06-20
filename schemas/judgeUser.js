@@ -11,3 +11,5 @@ var judgeUserSchema = mongoose.Schema({
 		ref: "User"
 	}
 });
+
+var JudgeUser = mongoose.model("JudgeUser", judgeUserSchema);

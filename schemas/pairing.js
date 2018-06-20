@@ -16,3 +16,5 @@ var pairingSchema = mongoose.Schema({
 		ref: "Room"
 	}
 });
+
+var Pairing = mongoose.model("Pairing", pairingSchema);

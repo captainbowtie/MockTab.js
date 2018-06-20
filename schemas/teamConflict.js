@@ -11,3 +11,5 @@ var teamConflictSchema = mongoose.Schema({
 		ref: "Team"
 	}
 });
+
+var TeamConflict = mongoose.model("TeamConflict", teamConflictSchema);

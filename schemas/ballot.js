@@ -75,3 +75,5 @@ var ballotSchema = mongoose.Schema({
 		judge: "Competitor"
 	}
 });
+
+var Ballot = mongoose.model("Ballot", ballotSchema);

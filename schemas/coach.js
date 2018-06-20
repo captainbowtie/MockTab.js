@@ -7,7 +7,9 @@ var coachSchema = mongoose.Schema({
 		ref: "User"
 	},
 	team: {
-		ref: mongoose.Schema.Types.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: "Team"
 	}
 });
+
+var Coach = mongoose.model("Coach", coachSchema);

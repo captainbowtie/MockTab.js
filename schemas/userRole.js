@@ -11,3 +11,5 @@ var roleSchema = mongoose.Schema({
 		ref: "Role"
 	}
 });
+
+var UserRole = mongoose.model("UserRole", userRoleSchema);
