@@ -16,36 +16,260 @@ var ballotSchema = mongoose.Schema({
 		required: true
 	},
 	p:{
-		open: Number,
-		close: Number,
-		aDx1: Number,
-		aDx2: Number,
-		aDx3: Number,
-		aCx1: Number,
-		aCx2: Number,
-		aCx3: Number,
-		wDx1: Number,
-		wDx2: Number,
-		wDx3: Number,
-		wCx1: Number,
-		wCx2: Number,
-		wCx3: Number
+		open: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		close: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		aDx1: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		aDx2: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		aDx3: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		aCx1: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		aCx2: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		aCx3: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		wDx1: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		wDx2: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		wDx3: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		wCx1: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		wCx2: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		wCx3: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		}
 	},
 	d:{
-		open: Number,
-		close: Number,
-		aDx1: Number,
-		aDx2: Number,
-		aDx3: Number,
-		aCx1: Number,
-		aCx2: Number,
-		aCx3: Number,
-		wDx1: Number,
-		wDx2: Number,
-		wDx3: Number,
-		wCx1: Number,
-		wCx2: Number,
-		wCx3: Number
+		open: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		close: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		aDx1: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		aDx2: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		aDx3: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		aCx1: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		aCx2: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		aCx3: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		wDx1: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		wDx2: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		wDx3: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		wCx1: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		wCx2: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		},
+		wCx3: {
+			type: Number,
+			validate: {
+				validator: function(num) {
+					return num > -1 && num < 11;
+				},
+				message: "Scores must be between 0 and 10"
+			}
+		}
 	},
 	outstandingA1: {
 		type: mongoose.Schema.Types.ObjectId,

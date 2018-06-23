@@ -7,7 +7,13 @@ var teamSchema = mongoose.Schema({
 	},
 	number: {
 		type: Number,
-		required: true
+		required: true,
+		validate: {
+			validator: function(num) {
+				return num > 1000 && num < 2000;
+			},
+			message: "Team number must be a number between 1000 and 2000"
+		}
 	},
 	name: String
 });
