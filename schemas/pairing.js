@@ -27,3 +27,5 @@ var pairingSchema = mongoose.Schema({
 });
 
 var Pairing = mongoose.model("Pairing", pairingSchema);
+
+module.exports = Pairing;

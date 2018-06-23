@@ -306,3 +306,5 @@ var ballotSchema = mongoose.Schema({
 });
 
 var Ballot = mongoose.model("Ballot", ballotSchema);
+
+module.exports = Ballot;

@@ -23,3 +23,5 @@ var judgeSchema = mongoose.Schema({
 });
 
 var Judge = mongoose.model("Judge", judgeSchema);
+
+module.exports = Judge;

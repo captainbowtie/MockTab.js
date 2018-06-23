@@ -17,3 +17,5 @@ var teamConflictSchema = mongoose.Schema({
 });
 
 var TeamConflict = mongoose.model("TeamConflict", teamConflictSchema);
+
+module.exports = TeamConflict;

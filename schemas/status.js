@@ -10,3 +10,5 @@ var statusSchema = mongoose.Schema({
 });
 
 var Status = mongoose.model("Status", statusSchema);
+
+module.exports = Status;

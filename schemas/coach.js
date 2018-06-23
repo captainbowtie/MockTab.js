@@ -17,3 +17,5 @@ var coachSchema = mongoose.Schema({
 });
 
 var Coach = mongoose.model("Coach", coachSchema);
+
+module.exports = Coach;

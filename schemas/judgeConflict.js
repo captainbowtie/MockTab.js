@@ -18,3 +18,5 @@ var judgeConflictSchema = mongoose.Schema({
 });
 
 var JudgeConflict = mongoose.model("JudgeConflict", judgeConflictSchema);
+
+module.exports = JudgeConflict;
