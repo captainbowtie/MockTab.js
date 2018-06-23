@@ -4,7 +4,7 @@ var ballotSchema = mongoose.Schema({
 	_id: {
 		type:mongoose.Schema.Types.ObjectId,
 		required: true
-	}
+	},
 	pairing: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Pairing",
