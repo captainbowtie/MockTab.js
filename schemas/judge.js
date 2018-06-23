@@ -1,7 +1,20 @@
 var mongoose = require("mongoose");
 
 var judgeSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
+	_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true
+	},
+	name: {
+		firstName: {
+			type: String,
+			required: true
+		},
+		lastName: {
+			type: String,
+			required: true
+		}
+	},
 	availableRound1: Boolean,
 	availableRound2: Boolean,
 	availableRound3: Boolean,

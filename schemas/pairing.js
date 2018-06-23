@@ -1,19 +1,28 @@
 var mongoose = require("mongoose");
 
 var pairingSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
-	round: Number,
+	_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true
+	},
+	round: {
+		type: Number,
+		required: true
+	},
 	plaintiff: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Team"
+		ref: "Team",
+		required: true
 	},
 	defense: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Team"
+		ref: "Team",
+		required: true
 	},
 	room: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Room"
+		ref: "Room",
+		required: true
 	}
 });
 

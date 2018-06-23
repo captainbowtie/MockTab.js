@@ -1,12 +1,22 @@
 var mongoose = require("mongoose");
 
 var competitorSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
-	firstName: String,
-	lastName: String,
+	_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true
+	},
+	firstName: {
+		type: String,
+		required: true
+	},
+	lastName: {
+		type: String,
+		required: true
+	},
 	team: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Team'
+		ref: "Team",
+		required: true
 	}
 });
 

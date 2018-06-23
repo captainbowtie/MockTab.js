@@ -1,14 +1,19 @@
 var mongoose = require("mongoose");
 
 var judgeConflictSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
+	_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true
+	},
 	team: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Team"
+		ref: "Team",
+		required: true
 	},
 	judge: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Judge"
+		ref: "Judge",
+		required: true
 	}
 });
 

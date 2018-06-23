@@ -1,14 +1,18 @@
 var mongoose = require("mongoose");
 
 var teamConflictSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
+	_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true},
 	team1: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Team"
+		ref: "Team",
+		required: true
 	},
 	team2: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Team"
+		ref: "Team",
+		required: true
 	}
 });
 

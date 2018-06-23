@@ -1,7 +1,10 @@
 var mongoose = require("mongoose");
 
 var statusSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
+	_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true
+	},
 	key: String,
 	value: String
 });

@@ -1,14 +1,19 @@
 var mongoose = require("mongoose");
 
 var judgeUserSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
+	_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true
+	},
 	judge: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Judge"
+		ref: "Judge",
+		required: true
 	},
 	user: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "User"
+		ref: "User",
+		required: true
 	}
 });
 

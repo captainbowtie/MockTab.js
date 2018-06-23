@@ -1,12 +1,19 @@
 var mongoose = require("mongoose");
 
 var roomSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
+	_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true
+	},
 	building: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Building"
+		ref: "Building",
+		required: true
 	},
-	number: Number,
+	number: {
+		type: Number,
+		required: true
+	},
 	availableRound1: Boolean,
 	availableRound2: Boolean,
 	availableRound3: Boolean,

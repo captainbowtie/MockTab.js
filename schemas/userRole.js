@@ -1,10 +1,14 @@
 var mongoose = require("mongoose");
 
-var roleSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
+var userRoleSchema = mongoose.Schema({
+	_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true
+	},
 	user: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "User"
+		ref: "User",
+		required: true
 	},
 	role: {
 		type: mongoose.Schema.Types.ObjectId,

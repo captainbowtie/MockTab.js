@@ -1,8 +1,14 @@
 var mongoose = require("mongoose");
 
 var teamSchema = mongoose.Schema({
-	_id: mongoose.Schema.Types.ObjectId,
-	number: Number,
+	_id: {
+		type: mongoose.Schema.Types.ObjectId,
+		equired: true
+	},
+	number: {
+		type: Number,
+		required: true
+	},
 	name: String
 });
 
