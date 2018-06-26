@@ -22,22 +22,129 @@ mongoose.connect(urls.setup, function (err) {
 	}
  
 	//Drop old collections
-	Ballot.collection.drop();
-	Building.collection.drop();
-	Coach.collection.drop();
-	Competitor.collection.drop();
-	Judge.collection.drop();
-	JudgeConflict.collection.drop();
-	JudgeUser.collection.drop();
-	Pairing.collection.drop();
-	Role.collection.drop();
-	Room.collection.drop();
-	Status.collection.drop();
-	Team.collection.drop();
-	TeamConflict.collection.drop();
-	User.collection.drop();
-	UserRole.collection.drop();
+	mongoose.connection.db.listCollections({name: "ballots"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				Ballot.collection.drop();
+			}
+		});
 
+		mongoose.connection.db.listCollections({name: "buildings"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				Building.collection.drop();
+			}
+		});
+
+		mongoose.connection.db.listCollections({name: "coaches"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				Coach.collection.drop();
+			}
+		});
+
+
+		mongoose.connection.db.listCollections({name: "competitors"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				Competitor.collection.drop();
+			}
+		});
+
+		mongoose.connection.db.listCollections({name: "judges"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				Judge.collection.drop();
+			}
+		});
+
+		mongoose.connection.db.listCollections({name: "judgeconflicts"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				JudgeConflict.collection.drop();
+			}
+		});
+
+		mongoose.connection.db.listCollections({name: "judgeusers"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				JudgeUser.collection.drop();
+			}
+		});
+
+		mongoose.connection.db.listCollections({name: "pairings"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				Pairing.collection.drop();
+			}
+		});
+
+		mongoose.connection.db.listCollections({name: "roles"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				Role.collection.drop();
+			}
+		});
+
+		mongoose.connection.db.listCollections({name: "rooms"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				Room.collection.drop();
+			}
+		});
+
+
+		mongoose.connection.db.listCollections({name: "status"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				Status.collection.drop();
+			}
+		});
+
+		mongoose.connection.db.listCollections({name: "teams"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				Team.collection.drop();
+			}
+		});
+
+		mongoose.connection.db.listCollections({name: "teamconflicts"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				TeamConflict.collection.drop();
+			}
+		});
+
+		mongoose.connection.db.listCollections({name: "users"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				User.collection.drop();
+			}
+		});
+
+		mongoose.connection.db.listCollections({name: "userroles"})
+		.next(function(err, collinfo) {
+			if (collinfo) {
+				// The collection exists
+				UserRole.collection.drop();
+			}
+		});
+
+/*
 	//Create new admin user
 	const adminUser = new User({
 		_id: new mongoose.Types.ObjectId(),
@@ -94,7 +201,7 @@ mongoose.connect(urls.setup, function (err) {
 
 	//Save admin privilege grant
 	adminUserRole.save(function(err) {if (err) throw err;});
-
+	*/
 });
 
 
