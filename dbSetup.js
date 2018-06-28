@@ -15,7 +15,46 @@ const Team = require("./schemas/team");
 const TeamConflict = require("./schemas/teamConflict");
 const User = require("./schemas/user");
 const UserRole = require("./schemas/userRole");
- 
+
+//Create admin user
+const adminUser = new User({
+	_id: new mongoose.Types.ObjectId(),
+	email: "admin@mocktab.js",
+	password: "66746ad3c2025daae865c793d2becd6e6f5719e0e528adc0ae2f5228332702081a5f100f2bb3e6c56c7b7de872af0c3dc755b4673c2490e1bd7a7002565ebfe8", //Whirlpool hash of "mocktrial"
+	name: "Admin"
+});
+
+//Create admin role
+const adminRole = new Role({
+	_id: new mongoose.Types.ObjectId(),
+	role: "admin"
+});
+
+//Create tab role
+const tabRole = new Role({
+	_id: new mongoose.Types.ObjectId(),
+	role: "tab"
+});
+
+//Create coach role
+const coachRole = new Role({
+	_id: new mongoose.Types.ObjectId(),
+	role: "coach"
+});
+
+//Create judge role
+const judgeRole = new Role({
+	_id: new mongoose.Types.ObjectId(),
+	role: "judge"
+});
+
+//Grant admin privilege to admin user
+const adminUserRole = new UserRole({
+	_id: new mongoose.Types.ObjectId(),
+	user: adminUser._id,
+	role: adminRole._id
+});
+
 mongoose.connect(urls.setup, function (err) {
 	if (err) {
 		console.log(err);
@@ -30,7 +69,7 @@ mongoose.connect(urls.setup, function (err) {
 			}
 		});
 
-		mongoose.connection.db.listCollections({name: "buildings"})
+	mongoose.connection.db.listCollections({name: "buildings"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -38,7 +77,7 @@ mongoose.connect(urls.setup, function (err) {
 			}
 		});
 
-		mongoose.connection.db.listCollections({name: "coaches"})
+	mongoose.connection.db.listCollections({name: "coaches"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -47,7 +86,7 @@ mongoose.connect(urls.setup, function (err) {
 		});
 
 
-		mongoose.connection.db.listCollections({name: "competitors"})
+	mongoose.connection.db.listCollections({name: "competitors"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -55,7 +94,7 @@ mongoose.connect(urls.setup, function (err) {
 			}
 		});
 
-		mongoose.connection.db.listCollections({name: "judges"})
+	mongoose.connection.db.listCollections({name: "judges"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -63,7 +102,7 @@ mongoose.connect(urls.setup, function (err) {
 			}
 		});
 
-		mongoose.connection.db.listCollections({name: "judgeconflicts"})
+	mongoose.connection.db.listCollections({name: "judgeconflicts"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -71,7 +110,7 @@ mongoose.connect(urls.setup, function (err) {
 			}
 		});
 
-		mongoose.connection.db.listCollections({name: "judgeusers"})
+	mongoose.connection.db.listCollections({name: "judgeusers"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -79,7 +118,7 @@ mongoose.connect(urls.setup, function (err) {
 			}
 		});
 
-		mongoose.connection.db.listCollections({name: "pairings"})
+	mongoose.connection.db.listCollections({name: "pairings"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -87,7 +126,7 @@ mongoose.connect(urls.setup, function (err) {
 			}
 		});
 
-		mongoose.connection.db.listCollections({name: "roles"})
+	mongoose.connection.db.listCollections({name: "roles"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -95,7 +134,7 @@ mongoose.connect(urls.setup, function (err) {
 			}
 		});
 
-		mongoose.connection.db.listCollections({name: "rooms"})
+	mongoose.connection.db.listCollections({name: "rooms"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -104,7 +143,7 @@ mongoose.connect(urls.setup, function (err) {
 		});
 
 
-		mongoose.connection.db.listCollections({name: "status"})
+	mongoose.connection.db.listCollections({name: "status"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -112,7 +151,7 @@ mongoose.connect(urls.setup, function (err) {
 			}
 		});
 
-		mongoose.connection.db.listCollections({name: "teams"})
+	mongoose.connection.db.listCollections({name: "teams"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -120,7 +159,7 @@ mongoose.connect(urls.setup, function (err) {
 			}
 		});
 
-		mongoose.connection.db.listCollections({name: "teamconflicts"})
+	mongoose.connection.db.listCollections({name: "teamconflicts"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -128,7 +167,7 @@ mongoose.connect(urls.setup, function (err) {
 			}
 		});
 
-		mongoose.connection.db.listCollections({name: "users"})
+	mongoose.connection.db.listCollections({name: "users"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -136,7 +175,7 @@ mongoose.connect(urls.setup, function (err) {
 			}
 		});
 
-		mongoose.connection.db.listCollections({name: "userroles"})
+	mongoose.connection.db.listCollections({name: "userroles"})
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
@@ -145,59 +184,22 @@ mongoose.connect(urls.setup, function (err) {
 		});
 
 /*
-	//Create new admin user
-	const adminUser = new User({
-		_id: new mongoose.Types.ObjectId(),
-		email: "admin@mocktab.js",
-		password: "66746ad3c2025daae865c793d2becd6e6f5719e0e528adc0ae2f5228332702081a5f100f2bb3e6c56c7b7de872af0c3dc755b4673c2490e1bd7a7002565ebfe8", //Whirlpool hash of "mocktrial"
-		name: "Admin"
-	});
+	
 
 	//Save admin user to db
 	adminUser.save(function(err) {if (err) throw err;});
 
-	//Create admin role
-	const adminRole = new Role({
-		_id: new mongoose.Types.ObjectId(),
-		role: "admin"
-	});
-
 	//Save admin role
 	adminRole.save(function(err) {if (err) throw err;});
-
-	//Create tab role
-	const tabRole = new Role({
-		_id: new mongoose.Types.ObjectId(),
-		role: "tab"
-	});
 
 	//Save tab role
 	tabRole.save(function(err) {if (err) throw err;});
 
-	//Create coach role
-	const coachRole = new Role({
-		_id: new mongoose.Types.ObjectId(),
-		role: "coach"
-	});
-
 	//Save coach role
 	coachRole.save(function(err) {if (err) throw err;});
 
-	//Create judge role
-	const judgeRole = new Role({
-		_id: new mongoose.Types.ObjectId(),
-		role: "judge"
-	});
-
 	//Save admin role
 	judgeRole.save(function(err) {if (err) throw err;});
-
-	//Grant admin privilege to admin user
-	const adminUserRole = new UserRole({
-		_id: new mongoose.Types.ObjectId(),
-		user: adminUser._id,
-		role: adminRole._id
-	});
 
 	//Save admin privilege grant
 	adminUserRole.save(function(err) {if (err) throw err;});
