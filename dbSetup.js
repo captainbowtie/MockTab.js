@@ -56,9 +56,6 @@ const adminUserRole = new UserRole({
 });
 
 mongoose.connect(urls.setup, function (err) {
-	if (err) {
-		console.log(err);
-	}
  
 	//Drop old collections
 	mongoose.connection.db.listCollections({name: "ballots"})
@@ -130,7 +127,17 @@ mongoose.connect(urls.setup, function (err) {
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
-				Role.collection.drop();
+				Role.collection.drop(function(err,res){
+					adminRole.save(function(err) {if (err) throw err;});
+					tabRole.save(function(err) {if (err) throw err;});
+					coachRole.save(function(err) {if (err) throw err;});
+					judgeRole.save(function(err) {if (err) throw err;});
+				});
+			}else{
+				adminRole.save(function(err) {if (err) throw err;});
+				tabRole.save(function(err) {if (err) throw err;});
+				coachRole.save(function(err) {if (err) throw err;});
+				judgeRole.save(function(err) {if (err) throw err;});
 			}
 		});
 
@@ -171,7 +178,11 @@ mongoose.connect(urls.setup, function (err) {
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
-				User.collection.drop();
+				User.collection.drop(function(err,res){
+					adminUser.save(function(err) {if (err) throw err;});
+				});
+			}else{
+				adminUser.save(function(err) {if (err) throw err;});
 			}
 		});
 
@@ -179,78 +190,11 @@ mongoose.connect(urls.setup, function (err) {
 		.next(function(err, collinfo) {
 			if (collinfo) {
 				// The collection exists
-				UserRole.collection.drop();
+				UserRole.collection.drop(function(err,res){
+					adminUserRole.save(function(err) {if (err) throw err;});
+				});
+			}else{
+				adminUserRole.save(function(err) {if (err) throw err;});
 			}
 		});
-
-/*
-	
-
-	//Save admin user to db
-	adminUser.save(function(err) {if (err) throw err;});
-
-	//Save admin role
-	adminRole.save(function(err) {if (err) throw err;});
-
-	//Save tab role
-	tabRole.save(function(err) {if (err) throw err;});
-
-	//Save coach role
-	coachRole.save(function(err) {if (err) throw err;});
-
-	//Save admin role
-	judgeRole.save(function(err) {if (err) throw err;});
-
-	//Save admin privilege grant
-	adminUserRole.save(function(err) {if (err) throw err;});
-	*/
 });
-
-
-
-
-/*Drop old collections
-
-const collections = [
-	"users",
-	"teams",
-	"competitors",
-	"buildings",
-	"rooms",
-	"judges",
-	"judgeConficts",
-	"teamConflicts",
-	"roles",
-	"userRoles",
-	"pairings",
-	"judgeUsers",
-	"coaches",
-	"ballots",
-	"status"];
-
-MongoClient.connect(urls.setup, function(err, client) {
-	if (err) throw err;
-
-	const db = client.db("MockTab");
-
-	for(let collectionName of collections){
-		db.collection(collectionName).drop(function(){
-		}).then();
-	}
-	
-	client.close();
-});
-
-//Create new collections
-
-	MongoClient.connect(urls.setup, function(err, cli) {
-		if (err) throw err;
-
-		const db = cli.db("MockTab");
-
-		db.createCollection("test",function(){
-		});
-	
-		cli.close();
-	});
-*/
