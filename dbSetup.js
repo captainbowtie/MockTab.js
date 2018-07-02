@@ -1,6 +1,6 @@
 const urls = require("./db");
 const mongoose = require("mongoose");
-const Ballot  = require("./schemas/ballot");
+const Ballot = require("./schemas/ballot");
 const Building = require("./schemas/ballot");
 const Coach = require("./schemas/coach");
 const Competitor = require("./schemas/competitor");
@@ -55,27 +55,29 @@ const adminUserRole = new UserRole({
 	role: adminRole._id
 });
 
-mongoose.connect(urls.setup, function (err) {
- 
+mongoose.connect(urls.setup);
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function () {
 	//Drop old collections
-	mongoose.connection.db.listCollections({name: "ballots"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "ballots" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
 				Ballot.collection.drop();
 			}
 		});
 
-	mongoose.connection.db.listCollections({name: "buildings"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "buildings" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
 				Building.collection.drop();
 			}
 		});
 
-	mongoose.connection.db.listCollections({name: "coaches"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "coaches" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
 				Coach.collection.drop();
@@ -83,66 +85,66 @@ mongoose.connect(urls.setup, function (err) {
 		});
 
 
-	mongoose.connection.db.listCollections({name: "competitors"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "competitors" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
 				Competitor.collection.drop();
 			}
 		});
 
-	mongoose.connection.db.listCollections({name: "judges"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "judges" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
 				Judge.collection.drop();
 			}
 		});
 
-	mongoose.connection.db.listCollections({name: "judgeconflicts"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "judgeconflicts" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
 				JudgeConflict.collection.drop();
 			}
 		});
 
-	mongoose.connection.db.listCollections({name: "judgeusers"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "judgeusers" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
 				JudgeUser.collection.drop();
 			}
 		});
 
-	mongoose.connection.db.listCollections({name: "pairings"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "pairings" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
 				Pairing.collection.drop();
 			}
 		});
 
-	mongoose.connection.db.listCollections({name: "roles"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "roles" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
-				Role.collection.drop(function(err,res){
-					adminRole.save(function(err) {if (err) throw err;});
-					tabRole.save(function(err) {if (err) throw err;});
-					coachRole.save(function(err) {if (err) throw err;});
-					judgeRole.save(function(err) {if (err) throw err;});
+				Role.collection.drop(function (err, res) {
+					adminRole.save(function (err) { if (err) throw err; });
+					tabRole.save(function (err) { if (err) throw err; });
+					coachRole.save(function (err) { if (err) throw err; });
+					judgeRole.save(function (err) { if (err) throw err; });
 				});
-			}else{
-				adminRole.save(function(err) {if (err) throw err;});
-				tabRole.save(function(err) {if (err) throw err;});
-				coachRole.save(function(err) {if (err) throw err;});
-				judgeRole.save(function(err) {if (err) throw err;});
+			} else {
+				adminRole.save(function (err) { if (err) throw err; });
+				tabRole.save(function (err) { if (err) throw err; });
+				coachRole.save(function (err) { if (err) throw err; });
+				judgeRole.save(function (err) { if (err) throw err; });
 			}
 		});
 
-	mongoose.connection.db.listCollections({name: "rooms"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "rooms" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
 				Room.collection.drop();
@@ -150,51 +152,51 @@ mongoose.connect(urls.setup, function (err) {
 		});
 
 
-	mongoose.connection.db.listCollections({name: "status"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "status" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
 				Status.collection.drop();
 			}
 		});
 
-	mongoose.connection.db.listCollections({name: "teams"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "teams" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
 				Team.collection.drop();
 			}
 		});
 
-	mongoose.connection.db.listCollections({name: "teamconflicts"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "teamconflicts" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
 				TeamConflict.collection.drop();
 			}
 		});
 
-	mongoose.connection.db.listCollections({name: "users"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "users" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
-				User.collection.drop(function(err,res){
-					adminUser.save(function(err) {if (err) throw err;});
+				User.collection.drop(function (err, res) {
+					adminUser.save(function (err) { if (err) throw err; });
 				});
-			}else{
-				adminUser.save(function(err) {if (err) throw err;});
+			} else {
+				adminUser.save(function (err) { if (err) throw err; });
 			}
 		});
 
-	mongoose.connection.db.listCollections({name: "userroles"})
-		.next(function(err, collinfo) {
+	mongoose.connection.db.listCollections({ name: "userroles" })
+		.next(function (err, collinfo) {
 			if (collinfo) {
 				// The collection exists
-				UserRole.collection.drop(function(err,res){
-					adminUserRole.save(function(err) {if (err) throw err;});
+				UserRole.collection.drop(function (err, res) {
+					adminUserRole.save(function (err) { if (err) throw err; });
 				});
-			}else{
-				adminUserRole.save(function(err) {if (err) throw err;});
+			} else {
+				adminUserRole.save(function (err) { if (err) throw err; });
 			}
 		});
 });
